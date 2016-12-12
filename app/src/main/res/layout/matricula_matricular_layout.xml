@@ -19,7 +19,7 @@
         android:textAlignment="center" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView3"
         android:layout_centerHorizontal="true"
@@ -27,7 +27,9 @@
         android:id="@+id/tv_matricular_disciplina"
         android:textSize="30sp"
         android:textColor="@android:color/black"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"/>
 
     <Button
         android:text="Matricular"

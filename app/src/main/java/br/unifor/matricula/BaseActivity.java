@@ -13,14 +13,14 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     protected Fragment fragmento = null;
 
-    protected void exibeTela(int tela) {
+    protected void exibeTela(int activity, int tela) {
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         if (fragmento != null) {
             ft.remove(fragmento);
         }
         carregaFragmento(tela);
-        ft.add(R.id.activity_login, fragmento);
+        ft.add(activity, fragmento);
         ft.commit();
     }
 

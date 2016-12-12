@@ -2,15 +2,18 @@ package br.unifor.matricula.login;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import br.unifor.matricula.R;
 import br.unifor.matricula.interfaces.OnLoginInteractionListener;
+import br.unifor.matricula.model.Usuario;
 
 
 public class CadastroUsuario extends Fragment implements View.OnClickListener {
@@ -57,18 +60,35 @@ public class CadastroUsuario extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        String nome = etNome.getText().toString();
-        //TODO: Tratar os erros
-        mListener.validarNome(nome);
-        String email = etEmail.getText().toString();
-        //TODO: Tratar os erros
-        mListener.validarEmail(email);
-        String senha = etSenha.getText().toString();
-        //TODO: Tratar os erros
-        mListener.validarSenha(senha);
-        //TODO: Tratar os erros
-        mListener.cadastrar(nome, email, senha);
-        mListener.exibirLogin();
-
+      boolean ehValido = true;
+      String nome = etNome.getText().toString();
+      if (!mListener.validarNome(nome)) {
+        etNome.setError("Nome inválido");
+        ehValido = false;
+      }
+      String email = etEmail.getText().toString();
+      if (!mListener.validarEmail(email)) {
+        etNome.setError("Email inválido");
+        ehValido = false;
+      }
+      String senha = etSenha.getText().toString();
+      if (!mListener.validarSenha(senha)) {
+        etNome.setError("Senha inválida");
+        ehValido = false;
+      }
+      if (ehValido) {
+        if (mListener.cadastrar(nome, email, senha)) {
+          Toast.makeText(getActivity().getApplicationContext(), "Cadastro efetuado com sucesso!", Toast.LENGTH_LONG).show();
+          mListener.exibirLogin();
+        } else {
+          Snackbar.make(view,
+              "Email já cadastrado",
+              Snackbar.LENGTH_LONG).show();
+        }
+      } else {
+        Snackbar.make(view,
+            "Dados inválidos",
+            Snackbar.LENGTH_LONG).show();
+      }
     }
 }

@@ -5,7 +5,9 @@ import android.os.Bundle;
 
 import br.unifor.matricula.BaseActivity;
 import br.unifor.matricula.R;
+import br.unifor.matricula.dao.UsuarioDAO;
 import br.unifor.matricula.interfaces.OnLoginInteractionListener;
+import br.unifor.matricula.model.Usuario;
 
 public class Principal extends BaseActivity implements OnLoginInteractionListener {
 
@@ -15,8 +17,8 @@ public class Principal extends BaseActivity implements OnLoginInteractionListene
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.login_layout);
-        exibeTela(LOGIN);
+        setContentView(R.layout.login_principal_layout);
+        exibeTela(R.id.activity_login, LOGIN);
     }
 
     @Override
@@ -33,50 +35,54 @@ public class Principal extends BaseActivity implements OnLoginInteractionListene
 
     @Override
     public boolean validarNome(String nome) {
-        //TODO: Implementar validação
-        return true;
+        return (nome.trim().equals("")?false:true);
     }
 
     @Override
     public boolean validarEmail(String email) {
-        //TODO: Implementar validação
-        return true;
+        if (email.trim().equals("")) {
+            return false;
+        }
+        return email.contains("@");
     }
 
     @Override
     public boolean validarSenha(String senha) {
-        //TODO: Implementar validação
-        return true;
+        return (senha.trim().equals("")?false:true);
     }
 
     @Override
-    public boolean validarLogin(String email, String senha) {
-        //TODO: Validar o login
-        return true;
+    public int validarLogin(String email, String senha) {
+      UsuarioDAO usuarioDAO = new UsuarioDAO(this);
+      Long idUsuario = usuarioDAO.getIdUsuario(email, senha);
+      return (idUsuario == null?0:idUsuario.intValue());
     }
 
     @Override
-    public void login(String usuario, String senha) {
-        Intent it = new Intent(this, br.unifor.matricula.matricula.Principal.class);
-        //TODO: Passar o usuário
-        it.putExtra("usuario", 1);
-        startActivity(it);
-        finish();
+    public void login(int idUsuario) {
+      Intent it = new Intent(this, br.unifor.matricula.matricula.Principal.class);
+      it.putExtra("usuario", idUsuario);
+      startActivity(it);
+      finish();
     }
 
     @Override
     public void exibirCadastro() {
-        exibeTela(CADASTRO);
+        exibeTela(R.id.activity_login, CADASTRO);
     }
 
     @Override
     public void exibirLogin() {
-        exibeTela(LOGIN);
+        exibeTela(R.id.activity_login, LOGIN);
     }
 
     @Override
     public boolean cadastrar(String nome, String email, String senha) {
-        //TODO: Efetuar o cadastro
-        return true;
+      UsuarioDAO usuarioDAO = new UsuarioDAO(this);
+      if (usuarioDAO.existeEmail(email)) {
+        return false;
+      }
+      usuarioDAO.insert(new Usuario(nome, email, senha));
+      return true;
     }
 }
