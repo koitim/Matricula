@@ -37,8 +37,7 @@ public class ListaDisciplinas extends Fragment {
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     DisciplinaDAO disciplinaDAO = new DisciplinaDAO(getActivity().getApplicationContext());
-    //TODO: Recuperar todas as disciplinas que o usuário não está matriculado
-    disciplinas = disciplinaDAO.findAll();
+    disciplinas = disciplinaDAO.findDisciplianasNaoMatriculadas(getActivity().getApplicationContext(), mListener.getUsuario());
   }
 
   @Override

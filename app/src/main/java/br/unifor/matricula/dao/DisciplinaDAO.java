@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.unifor.matricula.model.Disciplina;
+import br.unifor.matricula.model.Matricula;
 import br.unifor.matricula.model.Usuario;
 
 /**
@@ -15,8 +16,6 @@ import br.unifor.matricula.model.Usuario;
  */
 
 public class DisciplinaDAO extends GenericDAO<Disciplina> {
-
-  // SELECT * FROM disciplina WHERE id =
 
   public DisciplinaDAO(Context context) {
     super(context);
@@ -71,6 +70,18 @@ public class DisciplinaDAO extends GenericDAO<Disciplina> {
       disciplinaList.add(disciplina);
     }
     return disciplinaList;
+  }
+
+  public List<Disciplina> findDisciplianasNaoMatriculadas(Context context, Usuario usuario) {
+    List<Disciplina> disciplinas = findAll();
+    MatriculaDAO matriculaDAO = new MatriculaDAO(context);
+    List<Matricula> todasMatriculasUsuario = matriculaDAO.find(usuario);
+    for (Matricula matricula : todasMatriculasUsuario) {
+      if (disciplinas.contains(matricula.getDisciplina())) {
+        disciplinas.remove(matricula.getDisciplina());
+      }
+    }
+    return disciplinas;
   }
 
   @Override

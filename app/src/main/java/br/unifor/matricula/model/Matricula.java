@@ -52,4 +52,15 @@ public class Matricula implements IModel {
   public void setDisciplina(Disciplina disciplina) {
     this.disciplina = disciplina;
   }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (obj == null)
+      return false;
+    if (!(obj instanceof Matricula))
+      return false;
+    Matricula matricula = (Matricula) obj;
+    return matricula.getUsuario().equals(this.usuario) &&
+        matricula.getDisciplina().equals(this.disciplina);
+  }
 }

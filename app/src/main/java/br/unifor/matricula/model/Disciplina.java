@@ -57,4 +57,14 @@ public class Disciplina implements IModel {
   public String toString() {
     return nome + " - " + descricao;
   }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (obj == null)
+      return false;
+    if (!(obj instanceof Disciplina))
+      return false;
+    Disciplina disciplina = (Disciplina) obj;
+    return disciplina.getNome().equals(this.nome);
+  }
 }
