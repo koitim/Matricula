@@ -11,78 +11,88 @@ import br.unifor.matricula.model.Usuario;
 
 public class Principal extends BaseActivity implements OnLoginInteractionListener {
 
-    private static final int LOGIN = 1;
-    private static final int CADASTRO = 2;
+  private static final int LOGIN = 1;
+  private static final int CADASTRO = 2;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.login_principal_layout);
-        exibeTela(R.id.activity_login, LOGIN);
-    }
+  private int telaAtual;
 
-    @Override
-    protected void carregaFragmento(int tela) {
-        switch (tela) {
-            case LOGIN:
-                fragmento = new Login();
-                break;
-            case CADASTRO:
-                fragmento = new CadastroUsuario();
-                break;
-        }
-    }
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.login_principal_layout);
+    exibirLogin();
+  }
 
-    @Override
-    public boolean validarNome(String nome) {
-        return (nome.trim().equals("")?false:true);
+  @Override
+  protected void carregaFragmento(int tela) {
+    switch (tela) {
+      case LOGIN:
+        fragmento = new Login();
+        break;
+      case CADASTRO:
+        fragmento = new CadastroUsuario();
+        break;
     }
+  }
 
-    @Override
-    public boolean validarEmail(String email) {
-        if (email.trim().equals("")) {
-            return false;
-        }
-        return email.contains("@");
-    }
+  @Override
+  public boolean validarNome(String nome) {
+    return !nome.trim().equals("");
+  }
 
-    @Override
-    public boolean validarSenha(String senha) {
-        return (senha.trim().equals("")?false:true);
-    }
+  @Override
+  public boolean validarEmail(String email) {
+    return !email.trim().equals("") && email.contains("@");
+  }
 
-    @Override
-    public int validarLogin(String email, String senha) {
-      UsuarioDAO usuarioDAO = new UsuarioDAO(this);
-      Long idUsuario = usuarioDAO.getIdUsuario(email, senha);
-      return (idUsuario == null?0:idUsuario.intValue());
-    }
+  @Override
+  public boolean validarSenha(String senha) {
+    return !senha.trim().equals("");
+  }
 
-    @Override
-    public void login(int idUsuario) {
-      Intent it = new Intent(this, br.unifor.matricula.matricula.Principal.class);
-      it.putExtra("usuario", idUsuario);
-      startActivity(it);
-      finish();
+  @Override
+  public void onBackPressed() {
+    if (telaAtual == LOGIN) {
+      super.onBackPressed();
+    } else {
+      exibirLogin();
     }
+  }
 
-    @Override
-    public void exibirCadastro() {
-        exibeTela(R.id.activity_login, CADASTRO);
-    }
+  @Override
+  public int validarLogin(String email, String senha) {
+    UsuarioDAO usuarioDAO = new UsuarioDAO(this);
+    Long idUsuario = usuarioDAO.getIdUsuario(email, senha);
+    return (idUsuario == null?0:idUsuario.intValue());
+  }
 
-    @Override
-    public void exibirLogin() {
-        exibeTela(R.id.activity_login, LOGIN);
-    }
+  @Override
+  public void login(int idUsuario) {
+    Intent it = new Intent(this, br.unifor.matricula.matricula.Principal.class);
+    it.putExtra(getString(R.string.usuario_param), idUsuario);
+    startActivity(it);
+    finish();
+  }
 
-    @Override
-    public boolean cadastrar(String nome, String email, String senha) {
-      UsuarioDAO usuarioDAO = new UsuarioDAO(this);
-      if (usuarioDAO.existeEmail(email)) {
-        return false;
-      }
-      usuarioDAO.insert(new Usuario(nome, email, senha));
-      return true;
+  @Override
+  public void exibirCadastro() {
+    telaAtual = CADASTRO;
+    exibeTela(R.id.activity_login, CADASTRO);
+  }
+
+  @Override
+  public void exibirLogin() {
+    telaAtual = LOGIN;
+    exibeTela(R.id.activity_login, LOGIN);
+  }
+
+  @Override
+  public boolean cadastrar(String nome, String email, String senha) {
+    UsuarioDAO usuarioDAO = new UsuarioDAO(this);
+    if (usuarioDAO.existeEmail(email)) {
+      return false;
     }
+    usuarioDAO.insert(new Usuario(nome, email, senha));
+    return true;
+  }
 }

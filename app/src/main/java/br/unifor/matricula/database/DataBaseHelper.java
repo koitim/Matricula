@@ -15,7 +15,7 @@ import br.unifor.matricula.model.Usuario;
 public class DataBaseHelper extends SQLiteOpenHelper {
 
   private static final String DATABASE_NAME = "matricula.db";
-  private static final int DATABASE_VERSION = 3;
+  private static final int DATABASE_VERSION = 4;
 
   public DataBaseHelper(Context context) {
     super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -39,7 +39,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
   @Override
   public void onUpgrade(SQLiteDatabase db, int i, int i1) {
-    /*// Matricula
+    // Matricula
     String sql = "DROP TABLE IF EXISTS " + Matricula.TABELA;
     db.execSQL(sql);
     // Disciplina
@@ -49,7 +49,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     sql = "DROP TABLE IF EXISTS " + Usuario.TABELA;
     db.execSQL(sql);
 
-    onCreate(db);*/
+    onCreate(db);
 
   }
 
@@ -83,6 +83,60 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     sql = "INSERT INTO disciplina (nome, descricao) VALUES ('N097','Lógica matemática')";
     db.execSQL(sql);
     sql = "INSERT INTO disciplina (nome, descricao) VALUES ('N524','Técnicas de programação')";
+    db.execSQL(sql);
+    sql = "INSERT INTO disciplina (nome, descricao) VALUES ('N617','Cálculo numérico')";
+    db.execSQL(sql);
+    sql = "INSERT INTO disciplina (nome, descricao) VALUES ('N673','Fundamentos de banco de dados')";
+    db.execSQL(sql);
+    sql = "INSERT INTO disciplina (nome, descricao) VALUES ('N618','Probabilidade e estatística')";
+    db.execSQL(sql);
+    sql = "INSERT INTO disciplina (nome, descricao) VALUES ('N554','Tecnologias internet I')";
+    db.execSQL(sql);
+    sql = "INSERT INTO disciplina (nome, descricao) VALUES ('N583','Teoria dos grafos')";
+    db.execSQL(sql);
+    sql = "INSERT INTO disciplina (nome, descricao) VALUES ('N672','Engenharia de requisitos e teste de SW')";
+    db.execSQL(sql);
+    sql = "INSERT INTO disciplina (nome, descricao) VALUES ('N565','Gestão de tecnologia da informação')";
+    db.execSQL(sql);
+    sql = "INSERT INTO disciplina (nome, descricao) VALUES ('N421','Produção de trabalhos científicos')";
+    db.execSQL(sql);
+    sql = "INSERT INTO disciplina (nome, descricao) VALUES ('N584','Projeto e análise de algoritmos')";
+    db.execSQL(sql);
+    sql = "INSERT INTO disciplina (nome, descricao) VALUES ('T952','Sistemas operacionais')";
+    db.execSQL(sql);
+    sql = "INSERT INTO disciplina (nome, descricao) VALUES ('N592','Tecnicas de implementação de sistemas de BD')";
+    db.execSQL(sql);
+    sql = "INSERT INTO disciplina (nome, descricao) VALUES ('N562','Análise e projeto de sistemas II')";
+    db.execSQL(sql);
+    sql = "INSERT INTO disciplina (nome, descricao) VALUES ('N593','Paradigmas de linguagens de programação')";
+    db.execSQL(sql);
+    sql = "INSERT INTO disciplina (nome, descricao) VALUES ('N564','Pesquisa operacional')";
+    db.execSQL(sql);
+    sql = "INSERT INTO disciplina (nome, descricao) VALUES ('T958','Redes de computadores')";
+    db.execSQL(sql);
+    sql = "INSERT INTO disciplina (nome, descricao) VALUES ('N587','Teroria dos automatos e linguagens formais')";
+    db.execSQL(sql);
+    sql = "INSERT INTO disciplina (nome, descricao) VALUES ('N588','Computabilidade')";
+    db.execSQL(sql);
+    sql = "INSERT INTO disciplina (nome, descricao) VALUES ('N521','Computação gráfica')";
+    db.execSQL(sql);
+    sql = "INSERT INTO disciplina (nome, descricao) VALUES ('N517','Engenharia de SW')";
+    db.execSQL(sql);
+    sql = "INSERT INTO disciplina (nome, descricao) VALUES ('N519','Inteligência artificial')";
+    db.execSQL(sql);
+    sql = "INSERT INTO disciplina (nome, descricao) VALUES ('N595','Redes de computadores II')";
+    db.execSQL(sql);
+    sql = "INSERT INTO disciplina (nome, descricao) VALUES ('N596','Trabalho de conclusão do curso I')";
+    db.execSQL(sql);
+    sql = "INSERT INTO disciplina (nome, descricao) VALUES ('N525','Compiladores I')";
+    db.execSQL(sql);
+    sql = "INSERT INTO disciplina (nome, descricao) VALUES ('N534','Gerência de projetos')";
+    db.execSQL(sql);
+    sql = "INSERT INTO disciplina (nome, descricao) VALUES ('N589','Processamento de imagens')";
+    db.execSQL(sql);
+    sql = "INSERT INTO disciplina (nome, descricao) VALUES ('N598','Sistemas distribuídos')";
+    db.execSQL(sql);
+    sql = "INSERT INTO disciplina (nome, descricao) VALUES ('N597','Trabalho de conclusão do curso II')";
     db.execSQL(sql);
   }
 }

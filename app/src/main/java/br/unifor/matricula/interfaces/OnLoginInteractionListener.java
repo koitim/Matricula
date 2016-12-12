@@ -1,7 +1,5 @@
 package br.unifor.matricula.interfaces;
 
-import br.unifor.matricula.model.Usuario;
-
 /**
  * Created by koitim on 10/12/2016.
  */

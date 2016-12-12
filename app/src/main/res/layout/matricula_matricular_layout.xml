@@ -7,7 +7,7 @@
     <!-- TODO: Update blank fragment layout -->
 
     <TextView
-        android:text="Matricular na disciplina"
+        android:text="@string/titulo_matricula"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -32,7 +32,7 @@
         android:paddingRight="30dp"/>
 
     <Button
-        android:text="Matricular"
+        android:text="@string/matricular"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

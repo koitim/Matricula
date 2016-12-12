@@ -19,7 +19,6 @@ import java.util.List;
 import br.unifor.matricula.R;
 import br.unifor.matricula.adapter.DisciplinasAdapter;
 import br.unifor.matricula.dao.MatriculaDAO;
-import br.unifor.matricula.interfaces.OnLoginInteractionListener;
 import br.unifor.matricula.interfaces.OnMatriculaInteractionListener;
 import br.unifor.matricula.model.Disciplina;
 import br.unifor.matricula.model.Matricula;
@@ -85,12 +84,7 @@ public class MinhaMatricula extends Fragment implements View.OnClickListener {
   @Override
   public void onAttach(Context context) {
     super.onAttach(context);
-    if (context instanceof OnMatriculaInteractionListener) {
-      mListener = (OnMatriculaInteractionListener) context;
-    } else {
-      throw new RuntimeException(context.toString()
-          + " must implement OnFragmentInteractionListener");
-    }
+    mListener = (OnMatriculaInteractionListener) context;
   }
 
   private List<Disciplina> getDisciplinas() {

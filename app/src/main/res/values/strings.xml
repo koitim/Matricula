@@ -5,16 +5,34 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="action_settings">Settings</string>
     <string name="home">Home</string>
     <string name="lista_disciplinas">Lista disciplinas</string>
     <string name="minha_matricula">Minha matrícula</string>
     <string name="logout">Logout</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="usuario">Email</string>
     <string name="senha">Senha</string>
     <string name="cadastre_se">Não possui conta? Cadastre-se!</string>
     <string name="login">Login</string>
+    <string name="nome">Nome</string>
+    <string name="email">Email</string>
+    <string name="cadastrar">Cadastrar</string>
+    <string name="bem_vindo">Seja bem vindo!</string>
+    <string name="orientacao">Selecione uma das opções no menu lateral!</string>
+    <string name="titulo_matricula">Matricular na disciplina</string>
+    <string name="matricular">Matricular</string>
+    <string name="nome_invalido">Nome inválido</string>
+    <string name="email_invalido">Email inválido</string>
+    <string name="senha_invalida">Senha inválida</string>
+    <string name="cadastro_ok">Cadastro efetuado com sucesso!</string>
+    <string name="email_ja_cadastrado">Email já cadastrado</string>
+    <string name="dados_invalidos">Dados inválidos</string>
+    <string name="usuario_senha_errados">Usuário ou senha errados</string>
+    <string name="usuario_senha_invalidos">Usuário ou senha inválidos</string>
+    <string name="usuario_param">usuario</string>
+    <string name="ola">"Olá "</string>
+    <string name="sim">Sim</string>
+    <string name="nao">Nao</string>
+    <string name="pergunta_sair">Voce realmente deseja sair?</string>
 </resources>

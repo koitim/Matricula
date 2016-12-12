@@ -3,17 +3,11 @@ package br.unifor.matricula.matricula;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
@@ -27,7 +21,7 @@ import br.unifor.matricula.model.Matricula;
 import br.unifor.matricula.model.Usuario;
 
 public class Principal extends BaseActivity
-        implements NavigationView.OnNavigationItemSelectedListener, OnMatriculaInteractionListener {
+    implements NavigationView.OnNavigationItemSelectedListener, OnMatriculaInteractionListener {
 
   private static final int HOME = 1;
   public static final int LISTA_DISCIPLINAS = 2;
@@ -47,25 +41,16 @@ public class Principal extends BaseActivity
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
 
-    Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-    setSupportActionBar(toolbar);
-
-    DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-    ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-        this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-    drawer.setDrawerListener(toggle);
-    toggle.syncState();
-
     NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
     navigationView.setNavigationItemSelectedListener(this);
 
     Intent it = getIntent();
-    int idUsuario = it.getIntExtra("usuario", 0);
+    int idUsuario = it.getIntExtra(getString(R.string.usuario_param), 0);
     UsuarioDAO usuarioDAO = new UsuarioDAO(this);
     usuario = usuarioDAO.find(idUsuario);
 
     tvOla = (TextView) navigationView.getHeaderView(0).findViewById(R.id.tv_ola);
-    tvOla.setText("Olá " + usuario.getNome() + "!");
+    tvOla.setText(getString(R.string.ola) + usuario.getNome() + "!");
 
     exibirHome();
   }
@@ -76,36 +61,22 @@ public class Principal extends BaseActivity
     if (drawer.isDrawerOpen(GravityCompat.START)) {
       drawer.closeDrawer(GravityCompat.START);
     } else {
-      super.onBackPressed();
+      switch (telaAtual) {
+        case HOME:
+          logout();
+          break;
+        case MATRICULAR:
+          exibirListaDisciplinas();
+          break;
+        default:
+          exibirHome();
+      }
     }
-  }
-
-  @Override
-  public boolean onCreateOptionsMenu(Menu menu) {
-    // Inflate the menu; this adds items to the action bar if it is present.
-    getMenuInflater().inflate(R.menu.main, menu);
-    return true;
-  }
-
-  @Override
-  public boolean onOptionsItemSelected(MenuItem item) {
-    // Handle action bar item clicks here. The action bar will
-    // automatically handle clicks on the Home/Up button, so long
-    // as you specify a parent activity in AndroidManifest.xml.
-    int id = item.getItemId();
-
-    //noinspection SimplifiableIfStatement
-    if (id == R.id.action_settings) {
-      return true;
-    }
-
-    return super.onOptionsItemSelected(item);
   }
 
   @SuppressWarnings("StatementWithEmptyBody")
   @Override
-  public boolean onNavigationItemSelected(MenuItem item) {
-    // Handle navigation view item clicks here.
+  public boolean onNavigationItemSelected(@NonNull MenuItem item) {
     int id = item.getItemId();
     switch (id) {
       case R.id.nav_home:
@@ -118,38 +89,36 @@ public class Principal extends BaseActivity
         exibirMinhaMatricula();
         break;
       case R.id.nav_logout:
-/*              AlertDialog.Builder builder = new AlertDialog.Builder(this)
-                  .setCancelable(false)
-                  .setMessage("Voce realmente deseja sair?")
-                  .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-
-                            mEditTextNome.setText("");
-                            mEditTextTelefone.setText("");
-                            mEditTextEndereco.setText("");
-                            mEditTextEmail.setText("");
-
-                            dialogInterface.dismiss();
-
-                        }
-                    })
-                    .setNegativeButton("Nao", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            dialogInterface.dismiss();
-                        }
-                    });
-
-                AlertDialog dialog = builder.create();
-                dialog.show();*/
-        Intent it = new Intent(this, br.unifor.matricula.login.Principal.class);
-        startActivity(it);
-        finish();
-    };
+        logout();
+    }
     DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
     drawer.closeDrawer(GravityCompat.START);
     return true;
+  }
+
+  private void logout() {
+    //TODO: Limpar variáveis por segurança???
+    AlertDialog.Builder builder = new AlertDialog.Builder(this)
+        .setCancelable(false)
+        .setMessage(R.string.pergunta_sair)
+        .setPositiveButton(R.string.sim, new DialogInterface.OnClickListener() {
+          @Override
+          public void onClick(DialogInterface dialogInterface, int i) {
+            Intent it = new Intent(Principal.this, br.unifor.matricula.login.Principal.class);
+            startActivity(it);
+            finish();
+
+            dialogInterface.dismiss();
+          }
+        })
+        .setNegativeButton(R.string.nao, new DialogInterface.OnClickListener() {
+          @Override
+          public void onClick(DialogInterface dialogInterface, int i) {
+            dialogInterface.dismiss();
+          }
+        });
+    AlertDialog dialog = builder.create();
+    dialog.show();
   }
 
   @Override

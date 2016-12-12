@@ -13,10 +13,9 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
         android:layout_marginTop="50dp"
         android:id="@+id/et_cadastro_nome"
-        android:hint="Nome"
+        android:hint="@string/nome"
         android:inputType="textPersonName" />
 
     <EditText
@@ -25,28 +24,25 @@
         android:inputType="textEmailAddress"
         android:ems="10"
         android:layout_below="@+id/et_cadastro_nome"
-        android:layout_alignStart="@+id/et_cadastro_nome"
         android:layout_marginTop="30dp"
         android:id="@+id/et_cadastro_email"
-        android:hint="Email" />
+        android:hint="@string/email" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:layout_below="@+id/et_cadastro_email"
-        android:layout_alignStart="@+id/et_cadastro_email"
         android:layout_marginTop="30dp"
         android:id="@+id/et_cadastro_senha"
-        android:hint="Senha"
+        android:hint="@string/senha"
         android:inputType="textPassword" />
 
     <Button
-        android:text="Cadastrar"
+        android:text="@string/cadastrar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/et_cadastro_senha"
-        android:layout_alignStart="@+id/et_cadastro_senha"
         android:layout_marginTop="40dp"
         android:id="@+id/bt_cadastro" />
 

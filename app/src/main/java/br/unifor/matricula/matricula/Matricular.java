@@ -54,12 +54,7 @@ public class Matricular extends Fragment implements View.OnClickListener {
   @Override
   public void onAttach(Context context) {
     super.onAttach(context);
-    if (context instanceof OnMatriculaInteractionListener) {
-      mListener = (OnMatriculaInteractionListener) context;
-    } else {
-      throw new RuntimeException(context.toString()
-          + " must implement OnFragmentInteractionListener");
-    }
+    mListener = (OnMatriculaInteractionListener) context;
   }
 
   @Override

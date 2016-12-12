@@ -38,7 +38,7 @@ public class DisciplinaDAO extends GenericDAO<Disciplina> {
 
   @Override
   public Disciplina find(int id) {
-    Disciplina disciplina = null;
+    Disciplina disciplina;
 
     Cursor cursor = mDatabase.query(
         Disciplina.TABELA, null, Disciplina.ID+"=?1", new String[]{String.valueOf(id)}, null, null, null
@@ -57,9 +57,9 @@ public class DisciplinaDAO extends GenericDAO<Disciplina> {
 
   @Override
   public List<Disciplina> findAll() {
-    Disciplina disciplina = null;
+    Disciplina disciplina;
     List<Disciplina> disciplinaList = new ArrayList();
-    String sql = "SELECT * FROM " + Disciplina.TABELA;
+    String sql = "SELECT * FROM " + Disciplina.TABELA + " ORDER BY " + Disciplina.DESCRICAO;
     Cursor cursor = mDatabase.rawQuery(sql, null);
     while (cursor.moveToNext()) {
       disciplina = new Disciplina(

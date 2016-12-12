@@ -16,10 +16,8 @@ import java.util.List;
 import br.unifor.matricula.R;
 import br.unifor.matricula.adapter.DisciplinasAdapter;
 import br.unifor.matricula.dao.DisciplinaDAO;
-import br.unifor.matricula.interfaces.OnLoginInteractionListener;
 import br.unifor.matricula.interfaces.OnMatriculaInteractionListener;
 import br.unifor.matricula.model.Disciplina;
-import br.unifor.matricula.model.Usuario;
 import br.unifor.matricula.util.SpacesItemDecoration;
 
 public class ListaDisciplinas extends Fragment {
@@ -68,12 +66,7 @@ public class ListaDisciplinas extends Fragment {
   @Override
   public void onAttach(Context context) {
     super.onAttach(context);
-    if (context instanceof OnMatriculaInteractionListener) {
-      mListener = (OnMatriculaInteractionListener) context;
-    } else {
-      throw new RuntimeException(context.toString()
-          + " must implement OnFragmentInteractionListener");
-    }
+    mListener = (OnMatriculaInteractionListener) context;
   }
 
   @Override

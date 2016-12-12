@@ -7,7 +7,7 @@
     <!-- TODO: Update blank fragment layout -->
 
     <TextView
-        android:text="Seja bem vindo!"
+        android:text="@string/bem_vindo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -19,7 +19,7 @@
         android:textStyle="normal|bold" />
 
     <TextView
-        android:text="Selecione uma das opções no menu lateral!"
+        android:text="@string/orientacao"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView"
