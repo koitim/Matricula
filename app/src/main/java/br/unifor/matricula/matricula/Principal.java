@@ -35,6 +35,7 @@ public class Principal extends BaseActivity
   private Disciplina disciplinaAMatricular;
 
   private TextView tvOla;
+  private NavigationView navigationView;
 
 
   @Override
@@ -45,7 +46,7 @@ public class Principal extends BaseActivity
     Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
     toolbar.setTitle(getString(R.string.app_name));
 
-    NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+    navigationView = (NavigationView) findViewById(R.id.nav_view);
     navigationView.setNavigationItemSelectedListener(this);
 
     Intent it = getIntent();
@@ -118,11 +119,26 @@ public class Principal extends BaseActivity
         .setNegativeButton(R.string.nao, new DialogInterface.OnClickListener() {
           @Override
           public void onClick(DialogInterface dialogInterface, int i) {
+            marcarMenu(telaAtual);
             dialogInterface.dismiss();
           }
         });
     AlertDialog dialog = builder.create();
     dialog.show();
+  }
+
+  private void marcarMenu(int tela) {
+    switch (tela) {
+      case HOME:
+        navigationView.setCheckedItem(R.id.nav_home);
+        break;
+      case LISTA_DISCIPLINAS:
+        navigationView.setCheckedItem(R.id.nav_lista_disciplinas);
+        break;
+      case MINHA_MATRICULA:
+        navigationView.setCheckedItem(R.id.nav_minha_matricula);
+        break;
+    }
   }
 
   @Override
@@ -156,6 +172,7 @@ public class Principal extends BaseActivity
 
   @Override
   public void exibirHome() {
+    marcarMenu(R.id.nav_home);
     exibeTela(R.id.content_main, HOME);
   }
 
@@ -166,11 +183,13 @@ public class Principal extends BaseActivity
   }
 
   private void exibirListaDisciplinas() {
+    marcarMenu(R.id.nav_lista_disciplinas);
     exibeTela(R.id.content_main, LISTA_DISCIPLINAS);
   }
 
   @Override
   public void exibirMinhaMatricula() {
+    marcarMenu(R.id.nav_minha_matricula);
     exibeTela(R.id.content_main, MINHA_MATRICULA);
   }
 
